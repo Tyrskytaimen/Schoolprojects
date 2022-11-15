@@ -1,0 +1,36 @@
+Muistipelin ohjeet
+COMP.CS.110 K2021
+
+Nimi: Katariina Tenhunen
+Opiskelijanumero: H299784
+Käyttäjätunnus: kgkate
+E-Mail: katariina.tenhunen@tuni.fi
+
+
+Pelin säännöt:
+
+	Pelissä on kaksi pelaajaa. Pelin alussa pelaajat voivat asettaa nimimerkit, sekä halutessaan antaa siemenarvon tai muuttaa korttien lukumäärää. Peli alkaa, kun painetaan Start-painiketta. Korttien yläpuolella näytetään aikaa, sekä vuorossa oleva pelaaja. Pelaajan vuoro säilyy, kunnes hän ei löydä pareja. Jos pelaaja löytää parin, lisätään hänelle piste. Pisteet ja kerätyt kortin näkyvät pelikorttien alapuolella. Peli päättyy siihen, kun laudalla ei ole enää kortteja piilossa. 
+
+	Pelin päätyttä pelaajille kerrotaan voittaja, voittajan pisteet, sekä peliin kulunut aika. Tasapelitilanteessa ilmoitetaan vain pistemäärä ja aika. Pelin voittaa siis se pelaaja, kuka on kerännyt eniten pisteitä. Pelin voi myös lopettaa kesken painamalla Close-nappia, joka sulkee peli-ikkunnan.
+
+
+Ohjelman rakenteesta ja virhetilanteista:
+
+	Ohjelman käynnistyessä luetaan fruitnames.txt tiedostosta pelissä käytettyjen hedelmien (kuvatiedostojen) nimet ja tallennetaan ne fruits_ vektoriin, jossa nimen lisäksi on alussa lukuarvona 0. Tämä kertoo myöhemmin sen, kuinkamonessa kortissa hedelmän kuva jo on. Pelin alussa myös tulostetaan vain pelaajien nimiä ja siemenarvoa varten QLineEdit-widgetit, korttimäärää varten SpinBox, sekä Start ja Close PushButtonit
+
+	Jos pelaaja jättää nimimerkin tyhjäksi, tulee pelaajan nimeksi joko Player 1 tai Player 2. Lisäksi, jos siemenarvoa ei anneta, arvotaan sellainen käyttäen järjestelmän aikaa siemenarvona. Siemenarvon paikalle ei käyttäjä pysty sijoittamaan muuta kuin numeroita väliltä 1-999. Korttien lukumäärä on aluksi 16, mutta painamalla nuolia ylös- tai alaspäin korttien määräksi saadaan parillinen luku väliltä 4-24. Kun painetaan Start-nappia, ei yllämainittuihin komponentteihin pysty enää tekemään muutoksia, eikä Start-painiketta pysty enää painamaan uudelleen.
+
+	Start-painikkeen painalluksen jälkeen ohjelma hakee peliä tarvittavat tiedot ja tulostuu haluttu määrä kortteja.Kortit tulostuvat aina niin, että kaikilla riveillä on saman verran kortteja ja rivien ja kolumnien määrät ovat mahdollisimman lähellä toisiaan. Tällöin esimerkiksi 16 kortilla tulostuu 4x4 pelilauta ja 22 kortilla 2x11 lauta. Kortit ovat PushButton widgettejä ja ne on tallennettu vektoriin riveittäin. Vektoriin kortit on tallenettu osoittimina ja niiden parina on QStringinä korttiin arvotun hedelmän nimi. Korttien arpomiseen (add_fruits)käytetään siemenarvoa, jonka avulla arvotaan fruits_-vektorista hedelmien nimiä. Jos arpomalla saatu hedelmä on jo kahdessa kortissa, arvotaan uudelleen kunnes löytyy vapaa hedelmä. 
+	
+	Korttia painaessa (button_pressed), kortti kääntyy. Käännetyt kortit asetetaan vektoriin cards_turned indekeihin 0 ja 1. Käännettyjä kortteja ei pysty painamaan uudelleen. Kun toinen kortti on käännetty, tarkistetaan onko korteissa sama hedelmä. Jos on, kortit muuttuvat harmaiksi ja vuoro säilyy pelaajalla. Lisäksi pelaajan pisteet kasvavat, pelaajan TextBrowser widgettiin lisätään hedelmän nimi ja kortit lisätään cards_found-vektoriin. Jos kortit eivät ole pari, pysyvät ne käännettyinä 2s ajan, jonka jälkeen ne kääntyvät takaisin piiloon ja vuoro vaihtuu toiselle pelaajalle. Tänä aikana muut kortit eivät myöskään ole käytössä.
+
+	Ohjelmassa pelaaja on toteutettu luokkana. Pelaajalla on nimi, pisteet, tieto onko vuorossa (true/false), sekä vektori, joka sisältää pelaajan saamat hedelmät. Pelaajat on tallennettu osoittima vektoriin players.
+
+
+Lisäominaisuudet:
+
+- Käyttäjä pystyy nimeämään pelaajat. 
+- Pelin aikana kerrotaan siihen mennessä kulunut aika. 
+- Pelissä kerrotaan TextBrowerissa, mitkä kortit kukin pelaaja on saanut.
+- Jokaisen kortin taustapuolella on samanlainen kuva.
+- Korttien kuvapuolella on hedelmien kuvia (itse piirretyt :))
